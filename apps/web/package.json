@@ -1,0 +1,27 @@
+{
+  "name": "@toka/web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@nuxtjs/tailwindcss": "^6.12.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-vue-next": "^0.399.0",
+    "nuxt": "^3.12.2",
+    "radix-vue": "^1.8.5",
+    "shadcn-nuxt": "^0.10.4",
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss-animate": "^1.0.7",
+    "vue": "latest"
+  },
+  "devDependencies": {
+    "@nuxtjs/color-mode": "^3.4.2"
+  }
+}
