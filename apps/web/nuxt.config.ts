@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt", "@nuxtjs/color-mode"],
+  modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt", "@nuxtjs/color-mode", "nuxt-lucide-icons"],
   //@ts-ignore
   shadcn: {
     /**
@@ -17,5 +17,8 @@ export default defineNuxtConfig({
   //@ts-ignore
   colorMode: {
     preference: 'dark'
-  }
+  },
+  lucide: {
+    namePrefix: 'Lucide',
+  },
 })
