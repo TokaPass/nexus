@@ -89,16 +89,16 @@ const generatePasswordWithOptions = () => {
             <nav class="grid gap-6 text-lg font-medium">
               <a href="/"
                 class="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base">
-              <LucidePackage2 class="h-5 w-5 transition-all group-hover:scale-110" />
-              <span class="sr-only">Toka</span>
-            </a>
+                <LucidePackage2 class="h-5 w-5 transition-all group-hover:scale-110" />
+                <span class="sr-only">Toka</span>
+              </a>
               <a href="/" class="flex items-center gap-4 px-2.5 text-foreground">
-              <LucideHome class="h-5 w-5" />
-              Dashboard
+                <LucideHome class="h-5 w-5" />
+                Dashboard
               </a>
               <a href="/" class="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
-              <LucideBook class="h-5 w-5" />
-              Passwords
+                <LucideBook class="h-5 w-5" />
+                Passwords
               </a>
             </nav>
           </SheetContent>
@@ -121,7 +121,7 @@ const generatePasswordWithOptions = () => {
         <div class="relative ml-auto flex-1 md:grow-0">
           <Dialog>
             <DialogTrigger asChild>
-              <Button>
+              <Button variant="outline">
                 Add Login
               </Button>
             </DialogTrigger>
