@@ -84,9 +84,9 @@ const generatePasswordWithOptions = () => {
       <nav class="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger asChild>
+            <TooltipTrigger as-child>
               <a href="/settings"
-              :class="['flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8', route.path === '/settings' ? 'bg-accent' : '']">
+                :class="['flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8', route.path === '/settings' ? 'bg-accent' : '']">
 
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5">
@@ -106,7 +106,7 @@ const generatePasswordWithOptions = () => {
       <header
         class="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
         <Sheet>
-          <SheetTrigger asChild>
+          <SheetTrigger as-child>
             <Button size="icon" variant="outline" class="sm:hidden">
 
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -161,7 +161,7 @@ const generatePasswordWithOptions = () => {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink asChild>
+              <BreadcrumbLink as-child>
                 <BreadcrumbPage>General</BreadcrumbPage>
               </BreadcrumbLink>
             </BreadcrumbItem>
@@ -201,7 +201,7 @@ const generatePasswordWithOptions = () => {
                   <Input id="website" class="col-span-3" required />
                 </div>
 
-                <div v-show="generatedPassword" class="grid grid-cols-4 items-center gap-4">
+                <div class="grid grid-cols-4 items-center gap-4">
                   <Sheet>
                     <SheetTrigger class="w-full col-span-4">
                       <Button>Password Generator</Button>
@@ -216,23 +216,23 @@ const generatePasswordWithOptions = () => {
 
                           <div class="grid gap-4">
                             <div class="flex items-center space-x-2">
-                              <Switch id="funmode" />
+                              <Switch id="funmode" :checked="funMode" @update:checked="funMode = !funMode" />
                               <Label htmlFor="funmode">Fun mode</Label>
                             </div>
                             <Card>
                               <CardContent class="grid gap-4">
                                 <div class="grid gap-2 mt-4">
                                   <Label htmlFor="length">Length</Label>
-                                  <Slider id="length" min={8} max={32} defaultValue={[16]} step={1} />
+                                  <Slider v-bind="length" id="length" :default-value="[12]" :min="8" :max="32" :step="1" />
                                 </div>
                                 <div class="grid gap-2">
-                                  <div v-if="funMode">
+                                  <div>
                                     <Label class="flex items-center gap-2">
                                       <Checkbox id="include-uppercase" />
                                       Capitalize
                                     </Label>
                                   </div>
-                                  <div v-else class="grid gap-2">
+                                  <div class="grid gap-2">
                                     <Label class="flex items-center gap-2">
                                       <Checkbox id="include-uppercase" />
                                       Include Uppercase
@@ -256,7 +256,13 @@ const generatePasswordWithOptions = () => {
                                   <div class="flex items-center gap-2">
                                     <Input id="password" readOnly />
                                     <Button variant="ghost" size="icon" class="rounded-full hover:bg-muted">
-                                      <LucideCopy class="h-4 w-4" />
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="size-4">
+                                        <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+                                        <path
+                                          d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                                      </svg>
                                     </Button>
                                   </div>
                                 </div>
@@ -277,7 +283,7 @@ const generatePasswordWithOptions = () => {
                 </div>
               </div>
               <DialogFooter>
-                <DialogClose asChild>
+                <DialogClose as-child>
                   <Button type="submit">Save changes</Button>
                 </DialogClose>
               </DialogFooter>
@@ -285,7 +291,7 @@ const generatePasswordWithOptions = () => {
           </Dialog>
         </div>
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+          <DropdownMenuTrigger as-child>
             <Button variant="outline" size="icon" class="overflow-hidden rounded-full">
               <img src="https://github.com/emirsassan.png" width={36} height={36} alt="Avatar"
                 class="overflow-hidden rounded-full" />
