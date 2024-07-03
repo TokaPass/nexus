@@ -9,18 +9,29 @@ let funMode = ref(false)
 let funCapitalize = ref(false)
 
 // general password ref's
-let generatedPassword = ref("")
-let length = ref(10)
+let generatedPassword = ref("asdsa")
+let length = ref([10])
 let uppercase = ref(true)
 let lowercase = ref(false)
 let numbers = ref(true)
 let symbols = ref(false)
 
+// form ref's
+let form = reactive({
+  username: "",
+  password: "",
+  url: ""
+})
+
+const debugAlert = () => {
+  console.log(JSON.stringify(form))
+}
+
 const generatePasswordWithOptions = () => {
-  if (funMode) {
-    generatedPassword.value = gPass({ wordCount: length.value, capitalize: funCapitalize.value })
+  if (!funMode) {
+    generatedPassword.value = gPass({ wordCount: length?.value[0], capitalize: funCapitalize.value })
   } else {
-    generatedPassword.value = generatePassword(length.value, uppercase.value, lowercase.value, numbers.value, symbols.value)
+    generatedPassword.value = generatePassword(length?.value[0], uppercase.value, lowercase.value, numbers.value, symbols.value)
   }
 }
 </script>
@@ -186,24 +197,29 @@ const generatePasswordWithOptions = () => {
                   <Label htmlFor="username" class="text-right">
                     Username
                   </Label>
-                  <Input id="username" class="col-span-3" required />
+                  <Input v-model="form.username" id="username" class="col-span-3" required />
                 </div>
                 <div class="grid grid-cols-4 items-center gap-4">
                   <Label htmlFor="password" class="text-right">
                     Password
                   </Label>
-                  <Input id="password" class="col-span-3" required />
+                  <Input v-model="form.password" id="password" class="col-span-3" required />
                 </div>
                 <div class="grid grid-cols-4 items-center gap-4">
                   <Label htmlFor="website" class="text-right">
                     Website
                   </Label>
-                  <Input id="website" class="col-span-3" required />
+                  <Input v-model="form.url" id="website" class="col-span-3" required />
                 </div>
 
                 <div class="grid grid-cols-4 items-center gap-4">
+
+                </div>
+              </div>
+              <DialogFooter>
+                <DialogClose as-child>
                   <Sheet>
-                    <SheetTrigger class="w-full col-span-4">
+                    <SheetTrigger class="col-span-4">
                       <Button>Password Generator</Button>
                     </SheetTrigger>
                     <SheetContent class="w-[800px] sm:w-[540px]">
@@ -223,30 +239,30 @@ const generatePasswordWithOptions = () => {
                               <CardContent class="grid gap-4">
                                 <div class="grid gap-2 mt-4">
                                   <Label htmlFor="length">Length</Label>
-                                  <Slider v-bind="length" id="length" :default-value="[12]" :min="8" :max="32" :step="1" />
+                                  <Slider v-bind="length[0]" id="length" :default-value="[12]" :min="8" :max="32" :step="1" />
                                 </div>
                                 <div class="grid gap-2">
                                   <div>
                                     <Label class="flex items-center gap-2">
-                                      <Checkbox id="include-uppercase" />
+                                      <Checkbox v-show="!funMode" :checked="funCapitalize" @update:checked="funCapitalize = !funCapitalize" id="include-uppercase" />
                                       Capitalize
                                     </Label>
                                   </div>
                                   <div class="grid gap-2">
                                     <Label class="flex items-center gap-2">
-                                      <Checkbox id="include-uppercase" />
+                                      <Checkbox :checked="uppercase" @update:checked="uppercase = !uppercase" id="include-uppercase" />
                                       Include Uppercase
                                     </Label>
                                     <Label class="flex items-center gap-2">
-                                      <Checkbox id="include-lowercase" />
+                                      <Checkbox :checked="lowercase" @update:checked="lowercase = !lowercase" id="include-lowercase" />
                                       Include Lowercase
                                     </Label>
                                     <Label class="flex items-center gap-2">
-                                      <Checkbox id="include-numbers" />
+                                      <Checkbox :checked="numbers" @update:checked="numbers = !numbers" id="include-numbers" />
                                       Include Numbers
                                     </Label>
                                     <Label class="flex items-center gap-2">
-                                      <Checkbox id="include-symbols" />
+                                      <Checkbox :checked="symbols" @update:checked="symbols = !symbols" id="include-symbols" />
                                       Include Symbols
                                     </Label>
                                   </div>
@@ -254,7 +270,7 @@ const generatePasswordWithOptions = () => {
                                 <div class="grid gap-2">
                                   <Label htmlFor="password">Generated Password</Label>
                                   <div class="flex items-center gap-2">
-                                    <Input id="password" readOnly />
+                                    <Input v-model="generatedPassword" id="password" disabled />
                                     <Button variant="ghost" size="icon" class="rounded-full hover:bg-muted">
                                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -271,8 +287,8 @@ const generatePasswordWithOptions = () => {
                           </div>
 
                           <div class="mt-4">
-                            <Button>Generate</Button>
-                            <Button variant="secondary" class="ml-4">
+                            <Button @click="generatePasswordWithOptions">Generate</Button>
+                            <Button @click="form.password = generatedPassword" variant="secondary" class="ml-4">
                               Use this password
                             </Button>
                           </div>
@@ -280,11 +296,8 @@ const generatePasswordWithOptions = () => {
                       </SheetHeader>
                     </SheetContent>
                   </Sheet>
-                </div>
-              </div>
-              <DialogFooter>
-                <DialogClose as-child>
-                  <Button type="submit">Save changes</Button>
+
+                  <Button @click="debugAlert" type="submit">Save changes</Button>
                 </DialogClose>
               </DialogFooter>
             </DialogContent>
