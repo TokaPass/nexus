@@ -31,15 +31,30 @@ const generatePasswordWithOptions = () => {
       <nav class="flex flex-col items-center gap-4 px-2 sm:py-5">
         <a href="/"
           class="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base">
-          <LucideCuboid class="h-4 w-4 transition-all group-hover:scale-110" />
+
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5">
+            <path
+              d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+            <path d="m3.3 7 8.7 5 8.7-5" />
+            <path d="M12 22V12" />
+          </svg>
+
           <span class="sr-only">Toka</span>
         </a>
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger asChild>
+            <TooltipTrigger as-child>
               <a href="/"
-                class="flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8">
-                <LucideHome class="h-5 w-5" />
+                :class="['flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8', route.path === '/' ? 'bg-accent' : '']">
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5">
+                  <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+                  <path
+                    d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                </svg>
+
                 <span class="sr-only">Dashboard</span>
               </a>
             </TooltipTrigger>
@@ -49,10 +64,16 @@ const generatePasswordWithOptions = () => {
 
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger asChild>
+            <TooltipTrigger as-child>
               <a href="/generator"
-                class="flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8">
-                <LucideBook class="h-5 w-5" />
+                :class="['flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8', route.path === '/generator' ? 'bg-accent' : '']">
+
+                <svg data-v-56bd7dfc="" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="size-5">
+                  <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+                </svg>
+
                 <span class="sr-only">Generator</span>
               </a>
             </TooltipTrigger>
@@ -65,8 +86,14 @@ const generatePasswordWithOptions = () => {
           <Tooltip>
             <TooltipTrigger asChild>
               <a href="/settings"
-                class="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8">
-                <LucideSettings class="h-5 w-5" />
+              :class="['flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8', route.path === '/settings' ? 'bg-accent' : '']">
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5">
+                  <path
+                    d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
                 <span class="sr-only">Settings</span>
               </a>
             </TooltipTrigger>
@@ -81,7 +108,13 @@ const generatePasswordWithOptions = () => {
         <Sheet>
           <SheetTrigger asChild>
             <Button size="icon" variant="outline" class="sm:hidden">
-              <LucidePanelLeft class="h-5 w-5" />
+
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5">
+                <rect width="18" height="18" x="3" y="3" rx="2" />
+                <path d="M9 3v18" />
+              </svg>
+
               <span class="sr-only">Toggle Menu</span>
             </Button>
           </SheetTrigger>
@@ -89,16 +122,32 @@ const generatePasswordWithOptions = () => {
             <nav class="grid gap-6 text-lg font-medium">
               <a href="/"
                 class="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base">
-                <LucidePackage2 class="h-5 w-5 transition-all group-hover:scale-110" />
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="h-5 w-5 transition-all group-hover:scale-110">
+                  <path
+                    d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+                  <path d="m3.3 7 8.7 5 8.7-5" />
+                  <path d="M12 22V12" />
+                </svg>
                 <span class="sr-only">Toka</span>
               </a>
               <a href="/" class="flex items-center gap-4 px-2.5 text-foreground">
-                <LucideHome class="h-5 w-5" />
-                Dashboard
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5">
+                  <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+                  <path
+                    d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                </svg>
+                Home
               </a>
               <a href="/" class="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
-                <LucideBook class="h-5 w-5" />
-                Passwords
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5">
+                  <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+                </svg>
+                Generator
               </a>
             </nav>
           </SheetContent>
@@ -120,7 +169,7 @@ const generatePasswordWithOptions = () => {
         </Breadcrumb>
         <div class="relative ml-auto flex-1 md:grow-0">
           <Dialog>
-            <DialogTrigger asChild>
+            <DialogTrigger as-child>
               <Button variant="outline">
                 Add Login
               </Button>
