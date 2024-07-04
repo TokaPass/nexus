@@ -239,7 +239,7 @@ const generatePasswordWithOptions = () => {
                               <CardContent class="grid gap-4">
                                 <div class="grid gap-2 mt-4">
                                   <Label htmlFor="length">Length</Label>
-                                  <Slider v-bind="length[0]" id="length" :default-value="[12]" :min="8" :max="32" :step="1" />
+                                  <Slider id="length" v-model="length" :default-value="length" :min="8" :max="32" :step="1" />
                                 </div>
                                 <div class="grid gap-2">
                                   <div>
