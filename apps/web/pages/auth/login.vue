@@ -20,8 +20,6 @@ const onSubmit = form.handleSubmit(async (values) => {
     body: values
   }).then(x => x as { data: { token: string } })
 
-  console.log(response)
-
   tokenCookie.value = response.data.token
   await navigateTo("/")
 })

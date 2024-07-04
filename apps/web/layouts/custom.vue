@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { generateSillyPassword as gPass } from 'silly-password-generator';
+import { toTypedSchema } from '@vee-validate/zod'
+import { useForm } from 'vee-validate'
+import * as z from 'zod'
 
 // get current route
 const route = useRoute()
@@ -16,11 +19,23 @@ let lowercase = ref(false)
 let numbers = ref(true)
 let symbols = ref(false)
 
+let hackyPasswordField = ref("")
+
 // form ref's
-let form = reactive({
+/*let form = reactive({
   username: "",
   password: "",
   url: ""
+})*/
+
+const formSchema = toTypedSchema(z.object({
+  username: z.string().min(2).max(50),
+  password: z.string().min(6).max(50),
+  url: z.string().url()
+}))
+
+const form = useForm({
+  validationSchema: formSchema,
 })
 
 const generatePasswordWithOptions = () => {
@@ -34,6 +49,10 @@ const generatePasswordWithOptions = () => {
 const copyToClipboard = async (text: string) => {
   await navigator.clipboard.writeText(text)
 }
+
+const onSubmit = form.handleSubmit(async (values) => {
+  console.log(values)
+})
 </script>
 
 <template>
@@ -193,110 +212,141 @@ const copyToClipboard = async (text: string) => {
                   Fill inputs and Click save when you're done.
                 </DialogDescription>
               </DialogHeader>
-              <div class="grid gap-4 py-4">
-                <div class="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="username" class="text-right">
-                    Username
-                  </Label>
-                  <Input v-model="form.username" id="username" class="col-span-3" required />
-                </div>
-                <div class="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="password" class="text-right">
-                    Password
-                  </Label>
-                  <Input v-model="form.password" id="password" class="col-span-3" required />
-                </div>
-                <div class="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="website" class="text-right">
-                    Website
-                  </Label>
-                  <Input v-model="form.url" id="website" class="col-span-3" required />
-                </div>
-              </div>
-              <DialogFooter>
-                <DialogClose as-child>
-                  <Sheet>
-                    <SheetTrigger class="col-span-4">
-                      <Button>Password Generator</Button>
-                    </SheetTrigger>
-                    <SheetContent class="w-[800px] sm:w-[540px]">
-                      <SheetHeader>
-                        <SheetTitle>Password generator</SheetTitle>
-                        <SheetDescription>
-                          Change options to generate different passwords
+              <form @submit="onSubmit">
+                <div class="grid gap-4 py-4">
+                  <FormField v-slot="{ componentField }" name="username" class="grid grid-cols-4 items-center gap-4">
+                    <FormItem>
+                      <FormLabel>Username</FormLabel>
 
-                          <Separator class="mt-4 mb-4" />
+                      <FormControl>
+                        <Input v-bind="componentField" id="username" class="col-span-3" required />
+                      </FormControl>
+                    </FormItem>
+                  </FormField>
+                  <FormField v-slot="{ componentField }" name="password" class="grid grid-cols-4 items-center gap-4">
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
 
-                          <div class="grid gap-4">
-                            <div class="flex items-center space-x-2">
-                              <Switch id="funmode" :checked="funMode" @update:checked="funMode = !funMode" />
-                              <Label htmlFor="funmode">Fun mode</Label>
-                            </div>
-                            <Card>
-                              <CardContent class="grid gap-4">
-                                <div class="grid gap-2 mt-4">
-                                  <Label htmlFor="length">Length</Label>
-                                  <Slider id="length" v-model="length" :default-value="length" :min="8" :max="32" :step="1" />
-                                </div>
-                                <div class="grid gap-2">
-                                  <div v-if="funMode">
-                                    <Label class="flex items-center gap-2">
-                                      <Checkbox v-show="!funMode" :checked="funCapitalize" @update:checked="funCapitalize = !funCapitalize" id="include-uppercase" />
-                                      Capitalize
-                                    </Label>
+
+                      <FormControl class="flex flex-1">
+                        <div>
+                          <Input v-bind="componentField" v-model="hackyPasswordField" id="password" class="flex"
+                            required />
+
+                          <Sheet>
+                            <SheetTrigger>
+                              <Button class="flex ml-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                  stroke-linecap="round" stroke-linejoin="round"
+                                  class="size-5">
+                                  <rect width="20" height="12" x="2" y="6" rx="2" />
+                                  <path d="M12 12h.01" />
+                                  <path d="M17 12h.01" />
+                                  <path d="M7 12h.01" />
+                                </svg>
+                              </Button>
+                            </SheetTrigger>
+                            <SheetContent class="w-[800px] sm:w-[540px]">
+                              <SheetHeader>
+                                <SheetTitle>Password generator</SheetTitle>
+                                <SheetDescription>
+                                  Change options to generate different passwords
+
+                                  <Separator class="mt-4 mb-4" />
+
+                                  <div class="grid gap-4">
+                                    <div class="flex items-center space-x-2">
+                                      <Switch id="funmode" :checked="funMode" @update:checked="funMode = !funMode" />
+                                      <Label htmlFor="funmode">Fun mode</Label>
+                                    </div>
+                                    <Card>
+                                      <CardContent class="grid gap-4">
+                                        <div class="grid gap-2 mt-4">
+                                          <Label htmlFor="length">Length</Label>
+                                          <Slider id="length" v-model="length" :default-value="length" :min="8"
+                                            :max="32" :step="1" />
+                                        </div>
+                                        <div class="grid gap-2">
+                                          <div v-if="funMode">
+                                            <Label class="flex items-center gap-2">
+                                              <Checkbox v-show="!funMode" :checked="funCapitalize"
+                                                @update:checked="funCapitalize = !funCapitalize"
+                                                id="include-uppercase" />
+                                              Capitalize
+                                            </Label>
+                                          </div>
+                                          <div v-else class="grid gap-2">
+                                            <Label class="flex items-center gap-2">
+                                              <Checkbox :checked="uppercase" @update:checked="uppercase = !uppercase"
+                                                id="include-uppercase" />
+                                              Include Uppercase
+                                            </Label>
+                                            <Label class="flex items-center gap-2">
+                                              <Checkbox :checked="lowercase" @update:checked="lowercase = !lowercase"
+                                                id="include-lowercase" />
+                                              Include Lowercase
+                                            </Label>
+                                            <Label class="flex items-center gap-2">
+                                              <Checkbox :checked="numbers" @update:checked="numbers = !numbers"
+                                                id="include-numbers" />
+                                              Include Numbers
+                                            </Label>
+                                            <Label class="flex items-center gap-2">
+                                              <Checkbox :checked="symbols" @update:checked="symbols = !symbols"
+                                                id="include-symbols" />
+                                              Include Symbols
+                                            </Label>
+                                          </div>
+                                        </div>
+                                        <div class="grid gap-2">
+                                          <Label htmlFor="password">Generated Password</Label>
+                                          <div class="flex items-center gap-2">
+                                            <Input v-model="generatedPassword" id="password" disabled />
+                                            <Button @click="copyToClipboard(generatedPassword)" variant="ghost"
+                                              size="icon" class="rounded-full hover:bg-muted">
+                                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="size-4">
+                                                <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+                                                <path
+                                                  d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                                              </svg>
+                                            </Button>
+                                          </div>
+                                        </div>
+                                      </CardContent>
+                                    </Card>
                                   </div>
-                                  <div v-else class="grid gap-2">
-                                    <Label class="flex items-center gap-2">
-                                      <Checkbox :checked="uppercase" @update:checked="uppercase = !uppercase" id="include-uppercase" />
-                                      Include Uppercase
-                                    </Label>
-                                    <Label class="flex items-center gap-2">
-                                      <Checkbox :checked="lowercase" @update:checked="lowercase = !lowercase" id="include-lowercase" />
-                                      Include Lowercase
-                                    </Label>
-                                    <Label class="flex items-center gap-2">
-                                      <Checkbox :checked="numbers" @update:checked="numbers = !numbers" id="include-numbers" />
-                                      Include Numbers
-                                    </Label>
-                                    <Label class="flex items-center gap-2">
-                                      <Checkbox :checked="symbols" @update:checked="symbols = !symbols" id="include-symbols" />
-                                      Include Symbols
-                                    </Label>
-                                  </div>
-                                </div>
-                                <div class="grid gap-2">
-                                  <Label htmlFor="password">Generated Password</Label>
-                                  <div class="flex items-center gap-2">
-                                    <Input v-model="generatedPassword" id="password" disabled />
-                                    <Button @click="copyToClipboard(generatedPassword)" variant="ghost" size="icon" class="rounded-full hover:bg-muted">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="size-4">
-                                        <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
-                                        <path
-                                          d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                                      </svg>
+
+                                  <div class="mt-4">
+                                    <Button @click="generatePasswordWithOptions">Generate</Button>
+                                    <Button @click="hackyPasswordField = generatedPassword" variant="secondary"
+                                      class="ml-4">
+                                      Use this password
                                     </Button>
                                   </div>
-                                </div>
-                              </CardContent>
-                            </Card>
-                          </div>
+                                </SheetDescription>
+                              </SheetHeader>
+                            </SheetContent>
+                          </Sheet>
+                        </div>
+                      </FormControl>
 
-                          <div class="mt-4">
-                            <Button @click="generatePasswordWithOptions">Generate</Button>
-                            <Button @click="form.password = generatedPassword" variant="secondary" class="ml-4">
-                              Use this password
-                            </Button>
-                          </div>
-                        </SheetDescription>
-                      </SheetHeader>
-                    </SheetContent>
-                  </Sheet>
+                    </FormItem>
+                  </FormField>
+                  <FormField v-slot="{ componentField }" name="url" class="grid grid-cols-4 items-center gap-4">
+                    <FormItem>
+                      <FormLabel>URL</FormLabel>
+                      <FormControl>
+                        <Input v-bind="componentField" id="website" class="col-span-3" required />
+                      </FormControl>
+                    </FormItem>
+                  </FormField>
+                </div>
+                <Button class="w-full" type="submit">Save changes</Button>
+              </form>
 
-                  <Button type="submit">Save changes</Button>
-                </DialogClose>
-              </DialogFooter>
             </DialogContent>
           </Dialog>
         </div>
