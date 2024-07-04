@@ -27,4 +27,6 @@ app.route('/auth', AuthRoute);
 app.route('/users', UsersRoute);
 app.route('/logins', LoginsRoute);
 
+console.log("Server is up and running!")
+
 export default app;
