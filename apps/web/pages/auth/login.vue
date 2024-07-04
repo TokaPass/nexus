@@ -12,8 +12,18 @@ const form = useForm({
   validationSchema: formSchema,
 })
 
-const onSubmit = form.handleSubmit((values) => {
-  console.log('Form submitted!', values)
+const tokenCookie = useCookie('token')
+
+const onSubmit = form.handleSubmit(async (values) => {
+  const response = await $fetch("http://localhost:3169/auth/login", {
+    method: "POST",
+    body: values
+  }).then(x => x as { data: { token: string } })
+
+  console.log(response)
+
+  tokenCookie.value = response.data.token
+  await navigateTo("/")
 })
 </script>
 

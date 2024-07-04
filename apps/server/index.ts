@@ -8,7 +8,7 @@ const app = new Hono();
 
 app.use('*', async (ctx: Context, next: Next): Promise<void | Response> => {
     return await cors({
-        origin: [ctx.env.CLIENT_ORIGIN_URL],
+        origin: "*",
         credentials: true,
     })(ctx, next);
 });
