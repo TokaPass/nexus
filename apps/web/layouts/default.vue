@@ -9,7 +9,7 @@ let funMode = ref(false)
 let funCapitalize = ref(false)
 
 // general password ref's
-let generatedPassword = ref("asdsa")
+let generatedPassword = ref("")
 let length = ref([10])
 let uppercase = ref(true)
 let lowercase = ref(false)
@@ -23,16 +23,16 @@ let form = reactive({
   url: ""
 })
 
-const debugAlert = () => {
-  console.log(JSON.stringify(form))
-}
-
 const generatePasswordWithOptions = () => {
   if (funMode.value) {
     generatedPassword.value = gPass({ wordCount: length?.value[0], capitalize: funCapitalize.value })
   } else {
     generatedPassword.value = generatePassword(length?.value[0], uppercase.value, lowercase.value, numbers.value, symbols.value)
   }
+}
+
+const copyToClipboard = async (text: string) => {
+  await navigator.clipboard.writeText(text)
 }
 </script>
 
@@ -211,10 +211,6 @@ const generatePasswordWithOptions = () => {
                   </Label>
                   <Input v-model="form.url" id="website" class="col-span-3" required />
                 </div>
-
-                <div class="grid grid-cols-4 items-center gap-4">
-
-                </div>
               </div>
               <DialogFooter>
                 <DialogClose as-child>
@@ -271,7 +267,7 @@ const generatePasswordWithOptions = () => {
                                   <Label htmlFor="password">Generated Password</Label>
                                   <div class="flex items-center gap-2">
                                     <Input v-model="generatedPassword" id="password" disabled />
-                                    <Button variant="ghost" size="icon" class="rounded-full hover:bg-muted">
+                                    <Button @click="copyToClipboard(generatedPassword)" variant="ghost" size="icon" class="rounded-full hover:bg-muted">
                                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round" class="size-4">
@@ -297,7 +293,7 @@ const generatePasswordWithOptions = () => {
                     </SheetContent>
                   </Sheet>
 
-                  <Button @click="debugAlert" type="submit">Save changes</Button>
+                  <Button type="submit">Save changes</Button>
                 </DialogClose>
               </DialogFooter>
             </DialogContent>
