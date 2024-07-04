@@ -29,4 +29,7 @@ app.route('/logins', LoginsRoute);
 
 console.log("Server is up and running!")
 
-export default app;
+export default {
+    port: 3169,
+    fetch: app.fetch
+};

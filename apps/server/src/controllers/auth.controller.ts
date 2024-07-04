@@ -16,6 +16,12 @@ app.post('/register', async (ctx: Context): Promise<Response> => {
     password: string;
   } = await ctx.req.json();
 
+  const userExists = await prisma.user.findUnique({ where: { username } });
+  
+  if (userExists) {
+    return ctx.json({ err: "User already exists. Please choose a different username" });
+  }
+
   const hashedPassword = await Bun.password.hash(password, {
     algorithm: "bcrypt",
     cost: 10
