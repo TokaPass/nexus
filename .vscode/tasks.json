@@ -1,0 +1,11 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start frontend",
+      "type": "shell",
+      "command": "bun run --filter '@toka/web' dev",
+      "problemMatcher": []
+    }
+  ]
+}
