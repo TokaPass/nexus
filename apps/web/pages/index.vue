@@ -1,13 +1,14 @@
 <script setup lang="ts">
-
+definePageMeta({
+  layout: "custom"
+})
 </script>
 
 <template>
   <div>
-    <title>Toka</title>
     <div class="relative flex-1 md:grow-0 ml-auto mb-6">
-      <h2 className="text-2xl font-bold">Passwords</h2>
-      <p className="text-muted-foreground">
+      <h2 class="text-2xl font-bold">Passwords</h2>
+      <p class="text-muted-foreground">
         Manage your accounts.
       </p>
     </div>
