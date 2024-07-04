@@ -28,7 +28,7 @@ const debugAlert = () => {
 }
 
 const generatePasswordWithOptions = () => {
-  if (!funMode) {
+  if (funMode.value) {
     generatedPassword.value = gPass({ wordCount: length?.value[0], capitalize: funCapitalize.value })
   } else {
     generatedPassword.value = generatePassword(length?.value[0], uppercase.value, lowercase.value, numbers.value, symbols.value)
@@ -242,13 +242,13 @@ const generatePasswordWithOptions = () => {
                                   <Slider id="length" v-model="length" :default-value="length" :min="8" :max="32" :step="1" />
                                 </div>
                                 <div class="grid gap-2">
-                                  <div>
+                                  <div v-if="funMode">
                                     <Label class="flex items-center gap-2">
                                       <Checkbox v-show="!funMode" :checked="funCapitalize" @update:checked="funCapitalize = !funCapitalize" id="include-uppercase" />
                                       Capitalize
                                     </Label>
                                   </div>
-                                  <div class="grid gap-2">
+                                  <div v-else class="grid gap-2">
                                     <Label class="flex items-center gap-2">
                                       <Checkbox :checked="uppercase" @update:checked="uppercase = !uppercase" id="include-uppercase" />
                                       Include Uppercase
