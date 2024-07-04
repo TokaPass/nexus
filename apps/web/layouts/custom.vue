@@ -77,7 +77,7 @@ const copyToClipboard = async (text: string) => {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger as-child>
-              <a href="/generator"
+              <a href="/"
                 :class="['flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8', route.path === '/generator' ? 'bg-accent' : '']">
 
                 <svg data-v-56bd7dfc="" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
