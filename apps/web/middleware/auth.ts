@@ -1,9 +1,7 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
-    /*
-    const response = await $fetch("http://localhost:3169/users/me") as { data: string }
+    const { data: response } = await useFetch<{ data: string }>("http://localhost:3169/users/me")
 
-    if (response.data == "asd") {
+    if (response.value?.data == "asd") {
         return navigateTo("/auth/login")
     }
-    */
 })
