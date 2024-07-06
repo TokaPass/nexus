@@ -21,13 +21,6 @@ let symbols = ref(false)
 
 let hackyPasswordField = ref("")
 
-// form ref's
-/*let form = reactive({
-  username: "",
-  password: "",
-  url: ""
-})*/
-
 const formSchema = toTypedSchema(z.object({
   username: z.string().min(2).max(50),
   password: z.string().min(6).max(50),
@@ -51,7 +44,11 @@ const copyToClipboard = async (text: string) => {
 }
 
 const onSubmit = form.handleSubmit(async (values) => {
-  console.log(values)
+  await $fetch("http://localhost:3169/logins/create", {
+    method: "POST",
+    body: values,
+    headers: useRequestHeaders(['cookie'])
+  })
 })
 </script>
 
@@ -344,7 +341,9 @@ const onSubmit = form.handleSubmit(async (values) => {
                     </FormItem>
                   </FormField>
                 </div>
-                <Button class="w-full" type="submit">Save changes</Button>
+                <DialogClose as-child>
+                  <Button class="w-full" type="submit">Save changes</Button>
+                </DialogClose>
               </form>
 
             </DialogContent>
