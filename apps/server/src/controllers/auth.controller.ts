@@ -58,7 +58,7 @@ app.post('/login', async (ctx: Context): Promise<Response> => {
   ctx.header('Access-Control-Allow-Credentials', 'true');
   ctx.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   ctx.header('Access-Control-Allow-Headers', '*');
-  ctx.header('Access-Control-Allow-Origin', ctx.env.CLIENT_ORIGIN_URL);
+  ctx.header('Access-Control-Allow-Origin', "*");
 
   setCookie(ctx, 'token', token, {
     expires: new Date(new Date().setDate(new Date().getDate() + 7)),

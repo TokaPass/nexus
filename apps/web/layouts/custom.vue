@@ -44,10 +44,13 @@ const copyToClipboard = async (text: string) => {
 }
 
 const onSubmit = form.handleSubmit(async (values) => {
-  await $fetch("http://localhost:3169/logins/create", {
+  console.log(JSON.stringify(values))
+
+  await fetch("http://localhost:3169/logins/create", {
     method: "POST",
-    body: values,
-    headers: useRequestHeaders(['cookie'])
+    body: JSON.stringify(values),
+    headers: useRequestHeaders(['cookie']),
+    credentials: 'include',
   })
 })
 </script>

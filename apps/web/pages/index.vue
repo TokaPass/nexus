@@ -11,8 +11,6 @@ const { data: response, error, execute } = await useAsyncData<{ data: { url: str
     headers: useRequestHeaders(['cookie'])
   })
 )
-
-const refresh = () => refreshNuxtData("logins")
 </script>
 
 <template>

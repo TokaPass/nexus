@@ -5,6 +5,7 @@ import prisma from "../lib/prisma"
 import { type TBindings } from '../types/index';
 import { getCookie } from 'hono/cookie';
 import { aes256 as algorithm } from '../lib/encryption';
+import { cors } from 'hono/cors';
 
 const app = new Hono<{ Bindings: TBindings }>();
 

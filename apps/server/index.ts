@@ -9,7 +9,7 @@ const app = new Hono();
 app.use('*', async (ctx: Context, next: Next): Promise<void | Response> => {
     return await cors({
         origin: "*",
-        credentials: true,
+        credentials: false
     })(ctx, next);
 });
 
