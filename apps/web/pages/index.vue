@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useMagicKeys } from '@vueuse/core';
+
 definePageMeta({
   layout: "custom",
   middleware: "auth"

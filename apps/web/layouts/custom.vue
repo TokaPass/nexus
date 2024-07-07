@@ -3,6 +3,7 @@ import { generateSillyPassword as gPass } from 'silly-password-generator';
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 import * as z from 'zod'
+import { useMagicKeys } from '@vueuse/core';
 
 // get current route
 const route = useRoute()
@@ -21,6 +22,11 @@ let symbols = ref(false)
 
 let hackyPasswordField = ref("")
 
+// command palette options
+const open = ref(false)
+
+let isAddLogin = ref(false)
+
 const formSchema = toTypedSchema(z.object({
   username: z.string().min(2).max(50),
   password: z.string().min(6).max(50),
@@ -37,6 +43,23 @@ const generatePasswordWithOptions = () => {
   } else {
     generatedPassword.value = generatePassword(length?.value[0], uppercase.value, lowercase.value, numbers.value, symbols.value)
   }
+}
+
+const { Meta_J, Ctrl_J } = useMagicKeys({
+  passive: false,
+  onEventFired(e) {
+    if (e.key === 'j' && (e.metaKey || e.ctrlKey))
+      e.preventDefault()
+  },
+})
+
+watch([Meta_J, Ctrl_J], (v) => {
+  if (v[0] || v[1])
+    handleOpenChange()
+})
+
+function handleOpenChange() {
+  open.value = !open.value
 }
 
 const copyToClipboard = async (text: string) => {
@@ -236,10 +259,9 @@ const onSubmit = form.handleSubmit(async (values) => {
                           <Sheet>
                             <SheetTrigger>
                               <Button class="flex ml-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                  stroke-linecap="round" stroke-linejoin="round"
-                                  class="size-5">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                  stroke-linejoin="round" class="size-5">
                                   <rect width="20" height="12" x="2" y="6" rx="2" />
                                   <path d="M12 12h.01" />
                                   <path d="M17 12h.01" />
@@ -373,10 +395,28 @@ const onSubmit = form.handleSubmit(async (values) => {
         </DropdownMenu>
       </header>
       <div class="flex flex-col text-foreground overflow-y-auto">
-        <main class="flex-1 p-6">
+        <main class="flex-1 px-6">
           <slot />
         </main>
       </div>
     </div>
+
+    <CommandDialog :open="open" @update:open="handleOpenChange">
+      <CommandInput placeholder="Type a command or search..." />
+      <CommandList>
+        <CommandEmpty>No results found.</CommandEmpty>
+        <CommandGroup heading="Suggestions">
+          <CommandItem value="newlogin">
+            Add new login
+          </CommandItem>
+        </CommandGroup>
+        <CommandSeparator />
+        <CommandGroup heading="Settings">
+          <CommandItem value="settings">
+            Settings
+          </CommandItem>
+        </CommandGroup>
+      </CommandList>
+    </CommandDialog>
   </div>
 </template>
