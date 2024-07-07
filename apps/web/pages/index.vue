@@ -8,7 +8,8 @@ definePageMeta({
 const { data: response, error, execute } = await useAsyncData<{ data: { url: string, username: string, password: string }[] }>(
   'logins',
   () => $fetch('http://localhost:3169/logins/all', {
-    headers: useRequestHeaders(['cookie'])
+    headers: useRequestHeaders(['cookie']),
+    credentials: 'include',
   })
 )
 </script>

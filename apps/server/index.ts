@@ -8,8 +8,8 @@ const app = new Hono();
 
 app.use('*', async (ctx: Context, next: Next): Promise<void | Response> => {
     return await cors({
-        origin: "*",
-        credentials: false
+        origin: 'http://localhost:3000',
+        credentials: true
     })(ctx, next);
 });
 
