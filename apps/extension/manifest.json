@@ -1,0 +1,11 @@
+{
+  "name": "Toka",
+  "version": "1.0.0",
+  "description": "Password manager for everyone!",
+  "manifest_version": 3,
+  "author": "Toka Team",
+  "action":{
+      "default_popup": "index.html",
+      "default_title": "Toka"
+  }
+}
