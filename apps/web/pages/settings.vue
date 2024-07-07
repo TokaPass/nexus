@@ -31,6 +31,36 @@ definePageMeta({
             <Label htmlFor="bento">Enable Bento grid</Label>
           </div>
         </div>
+
+        <div class="mt-4">
+          <p>Hash count</p>
+          <div class="flex items-center space-x-2">
+            <Select defaultValue="100000">
+              <SelectTrigger>
+                <SelectValue placeholder="Select a fruit" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="100000">
+                    100.000
+                  </SelectItem>
+
+                  <SelectItem value="300000">
+                    300.000
+                  </SelectItem>
+
+                  <SelectItem value="500000">
+                    500.000
+                  </SelectItem>
+
+                  <SelectItem value="700000">
+                    700.000
+                  </SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
       </div>
     </div>
   </div>
