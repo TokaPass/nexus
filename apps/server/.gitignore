@@ -173,7 +173,3 @@ dist
 
 # Finder (MacOS) folder config
 .DS_Store
-
-# Custom
-!prisma/schema.prisma
-prisma/*
