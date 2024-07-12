@@ -7,5 +7,12 @@
   "action":{
       "default_popup": "index.html",
       "default_title": "Toka"
-  }
+  },
+  "permissions": [
+    "cookies"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ]
 }
