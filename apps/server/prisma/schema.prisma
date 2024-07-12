@@ -16,8 +16,8 @@ model User {
   username   String   @unique
   hashedPass String
   logins     Login[]
-  settings   Settings @relation(fields: [settingsId], references: [id])
-  settingsId String
+  settings   Settings? @relation(fields: [settingsId], references: [id])
+  settingsId String?
 }
 
 model Login {
@@ -31,6 +31,6 @@ model Login {
 
 model Settings {
   id        String @id @unique
-  hashCount Int
+  hashCount Int    @default(100000)
   User      User[]
 }

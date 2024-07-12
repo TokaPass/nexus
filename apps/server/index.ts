@@ -3,6 +3,7 @@ import { cors } from 'hono/cors';
 import AuthRoute from './src/controllers/auth.controller';
 import UsersRoute from './src/controllers/user.controller';
 import LoginsRoute from './src/controllers/logins.controller';
+import PreferencesRoute from './src/controllers/preferences.controller';
 
 const app = new Hono();
 
@@ -26,6 +27,7 @@ app.onError((err, ctx: Context) => {
 app.route('/auth', AuthRoute);
 app.route('/users', UsersRoute);
 app.route('/logins', LoginsRoute);
+app.route('/preferences', PreferencesRoute);
 
 console.log("Server is up and running!")
 
