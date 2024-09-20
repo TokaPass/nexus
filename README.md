@@ -19,4 +19,4 @@ But here are the manual installation steps:
 - Enjoy
 
 ## Usage
-See the [Toka wiki](https://github.com/TokaPass/docs) for more information on how to configure and run the Toka.
+See the [Toka docs](https://github.com/TokaPass/docs) for more information on how to configure and run the Toka.
