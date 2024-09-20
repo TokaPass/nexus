@@ -1,18 +1,14 @@
 {
   "name": "@toka/nexus",
-  "private": true,
-  "workspaces": [
-    "packages/*",
-    "apps/*"
-  ],
   "devDependencies": {
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
-  "dependencies": {
-    "@nuxt/devtools": "1.3.9",
-    "path-to-regexp": "6.3.0"
-  }
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ]
 }
